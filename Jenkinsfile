@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -9,6 +10,7 @@ pipeline {
                     reuseNode true
                 }
             }
+
             steps {
                 sh '''
                     ls -la
@@ -16,15 +18,15 @@ pipeline {
                     npm --version
                     npm ci
                     npm run build
-                    la -la
+                    ls -la
                 '''
             }
         }
-    }
 
-    stage('Test') {
-        steps {
-            sh 'test -f build/index.html'
+        stage('Test') {
+            steps {
+                sh 'test -f build/index.html'
+            }
         }
     }
 }
