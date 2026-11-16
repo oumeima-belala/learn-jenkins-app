@@ -2,15 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Check Docker') {
+        stage('Diagnose Environment') {
             steps {
                 sh '''
-                    echo "Checking Docker..."
-                    whoami
-                    echo $PATH
-                    ls -l /usr/bin/docker
-                    command -v docker
-                    docker --version
+                    echo "=== HOSTNAME ==="
+                    hostname
+
+                    echo "=== USER ==="
+                    id
+
+                    echo "=== WORKSPACE ==="
+                    pwd
+
+                    echo "=== DOCKER FILE ==="
+                    ls -l /usr/bin/docker || true
+
+                    echo "=== ROOT DIRECTORY ==="
+                    ls -la /
+
+                    echo "=== PROCESS CONTAINER ==="
+                    cat /proc/1/cgroup || true
                 '''
             }
         }
